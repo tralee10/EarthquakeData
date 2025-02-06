@@ -88,9 +88,9 @@
         <button onclick="sortTable()">Sort by Occupancies</button>
         <table>
             <tr>
-                <th>ID</th>
+                <th>Address</th>
                 <th>Name</th>
-                <th>Type</th>
+                <th>Occupancy</th>
             </tr>
         </table>
     </div>
@@ -121,25 +121,25 @@
                 let table = document.querySelector("table");
                 hospitals.features.forEach(feature => {
                     let row = table.insertRow(-1);
-                    row.insertCell(0).innerHTML = feature.properties.id || 'N/A';
-                    row.insertCell(1).innerHTML = feature.properties.name || 'Unknown';
-                    row.insertCell(2).innerHTML = "Hospital";
+                    row.insertCell(0).innerHTML = feature.properties.ADDRESS || 'N/A';
+                    row.insertCell(1).innerHTML = feature.properties.NAME || 'Unknown';
+                    row.insertCell(2).innerHTML = "Hospital (Blue)";
                 });
                 
                 firestations.features.forEach(feature => {
                     let row = table.insertRow(-1);
-                    row.insertCell(0).innerHTML = feature.properties.id || 'N/A';
-                    row.insertCell(1).innerHTML = feature.properties.name || 'Unknown';
-                    row.insertCell(2).innerHTML = "Fire Station";
+                    row.insertCell(0).innerHTML = feature.properties.ADDRESS || 'N/A';
+                    row.insertCell(1).innerHTML = feature.properties.STNID || 'Unknown';
+                    row.insertCell(2).innerHTML = "Fire Station (Red)";
                 });
                 
                 map.on('load', () => {
                     map.addSource('washington-boundary', { type: 'geojson', data: washingtonBoundary });
                     map.addLayer({
                         'id': 'washington-boundary-layer',
-                        'type': 'line',
+                        'type': 'fill',
                         'source': 'washington-boundary',
-                        'paint': { 'line-color': '#ff6600', 'line-width': 3 }
+                        'paint': { 'fill-color': '#ff6600', 'fill-opacity': 0.15 }
                     });
 
                     map.addSource('hospitals', { type: 'geojson', data: hospitals });
